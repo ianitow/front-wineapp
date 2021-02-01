@@ -9,46 +9,11 @@
         label="Search..."
         class="q-mb-md"
       />
-      <q-list
-        bordered
-        v-for="([key, value], indexTwo) in Object.entries(
-          this.getProductsByGroup
-        )"
-        :key="`${key} - ${indexTwo}`"
-        class="q-mb-xs"
-      >
-        <q-expansion-item
-          dense
-          :group="`${key}`"
-          icon="local_bar"
-          :label="key"
-          header-class="text-primary"
-        >
-          <q-item
-            dense
-            v-for="(product, index) in Object.values(value)"
-            :key="`${product.name} - ${index}`"
-          >
-            <q-item-section avatar>
-              <q-icon color="primary" name="inventory_2" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>{{ product.name }}</q-item-label>
-              <q-item-label caption>
-                {{ product.size }}L - {{ product.quantity }} - R${{
-                  product.price.toFixed(2)
-                }}</q-item-label
-              >
-            </q-item-section>
-
-            <div class="flex q-gutter-xs">
-              <q-btn dense color="secondary" label="Editar" />
-              <q-btn dense color="primary" label="Deletar" />
-            </div>
-          </q-item>
-        </q-expansion-item>
-      </q-list>
+      <product-group
+        iconHeader="local_bar"
+        icon="inventory_2"
+        :products="this.getProductsByGroup"
+      />
     </div>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn fab icon="add" color="accent" />
@@ -57,6 +22,7 @@
 </template>
 
 <script>
+import ProductGroup from 'src/components/ProductGroup.vue';
 import { createNamespacedHelpers } from 'vuex';
 
 import { GET_PRODUCTS_REQUEST } from '../store/product/types';
@@ -71,6 +37,7 @@ const {
   'product'
 );
 export default {
+  components: { ProductGroup },
   mounted() {
     this.productsRequest();
   },
