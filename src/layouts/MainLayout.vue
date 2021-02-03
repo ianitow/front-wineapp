@@ -8,9 +8,10 @@
           </q-toolbar-title>
         </q-toolbar>
       </q-header>
-
       <q-page-container class="content">
-        <router-view />
+        <transition appear enter-active-class="animated fadeInRight">
+          <router-view />
+        </transition>
       </q-page-container>
     </q-layout>
   </div>

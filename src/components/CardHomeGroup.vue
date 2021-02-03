@@ -18,8 +18,8 @@ export default {
   data() {
     return {
       options: [
-        { title: 'Products', icon: 'wine_bar', routeName: 'Products' },
-        { title: 'Inventory', icon: 'inventory', routeName: '' },
+        { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
+        { title: 'Orders', icon: 'inventory', routeName: '' },
         { title: 'Clients', icon: 'supervisor_account', routeName: '' },
         { title: 'Users', icon: 'admin_panel_settings', routeName: '' },
       ],
