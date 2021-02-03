@@ -1,22 +1,14 @@
 <template>
   <q-page padding>
+    <div v-if="isDialogCreateOpened">
+      <product-create v-on:onCancelButton="toggleDialogCreateOpened" />
+    </div>
     <div>
-      <q-input
-        bg-color="white"
-        rounded
-        outlined
-        v-model="text"
-        label="Search..."
-        class="q-mb-md"
-      />
-      <product-group
-        iconHeader="local_bar"
-        icon="inventory_2"
-        :products="this.getProductsByGroup"
-      />
+      <q-input bg-color="white" rounded outlined label="Search..." class="q-mb-md" />
+      <product-group iconHeader="local_bar" icon="inventory_2" :products="this.getProductsByGroup" />
     </div>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="add" color="accent" />
+      <q-btn fab icon="add" color="primary" @click="toggleDialogCreateOpened" />
     </q-page-sticky>
   </q-page>
 </template>
@@ -24,22 +16,24 @@
 <script>
 import ProductGroup from 'src/components/ProductGroup.vue';
 import { createNamespacedHelpers } from 'vuex';
-
-import { GET_PRODUCTS_REQUEST } from '../store/product/types';
+import ProductCreate from 'src/components/ProductCreate.vue';
 
 const {
   mapState,
   mapActions,
-  mapMutations,
+
   mapGetters,
 } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle
   'product'
 );
 export default {
-  components: { ProductGroup },
+  components: { ProductGroup, ProductCreate },
+  data() {
+    return { isDialogCreateOpened: false };
+  },
   mounted() {
-    this.productsRequest();
+    this.getProductsRequest();
   },
   computed: {
     ...mapGetters(['getProductsByGroup']),
@@ -48,13 +42,10 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations([GET_PRODUCTS_REQUEST]),
-    ...mapActions([
-      'productsRequest',
-      'deleteProduct',
-      'editProduct',
-      'createProduct',
-    ]),
+    toggleDialogCreateOpened() {
+      this.isDialogCreateOpened = !this.isDialogCreateOpened;
+    },
+    ...mapActions(['getProductsRequest', 'editProduct', 'createProduct']),
   },
 };
 </script>

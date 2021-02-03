@@ -1,14 +1,10 @@
 <template>
   <div class="">
     <q-layout view="lHh lpr lFf">
-      <q-header
-        id="header"
-        class="flex justify-center items-center text-center"
-        style="height:100px;"
-      >
+      <q-header id="header" class="flex justify-center items-center text-center" style="height:100px;">
         <q-toolbar>
           <q-toolbar-title class="header-content">
-            <img class="img-logo" src="../assets/logo.svg" />
+            <router-link :to="'/'"> <img class="img-logo" src="../assets/logo.svg"/></router-link>
           </q-toolbar-title>
         </q-toolbar>
       </q-header>

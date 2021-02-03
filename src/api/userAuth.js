@@ -17,9 +17,8 @@ export function login(email, password) {
             reject({ type: 'EMAIL_NOT_EXISTS' });
             break;
           case 401:
-            if (response.data.message.toString().includes('Password invalid')) {
-              reject({ type: 'PASSWORD_INVALID' });
-            }
+            if (response.data.message.toString().includes('Password invalid')) reject({ type: 'PASSWORD_INVALID' });
+
             break;
           default:
             reject({ type: 'UNKNOWN' });

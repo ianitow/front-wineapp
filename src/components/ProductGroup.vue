@@ -1,5 +1,5 @@
 <template>
-  <Fragment>
+  <div>
     <q-list
       bordered
       v-for="([key, value], indexTwo) in Object.entries(products)"
@@ -16,7 +16,7 @@
         <product-item :icon="icon" :product="value" />
       </q-expansion-item>
     </q-list>
-  </Fragment>
+  </div>
 </template>
 
 <script>

@@ -5,6 +5,7 @@
       :key="`${index} - ${option.title}`"
       :title="option.title"
       :icon="option.icon"
+      :routeName="option.routeName"
     />
   </div>
 </template>
@@ -17,10 +18,10 @@ export default {
   data() {
     return {
       options: [
-        { title: 'Products', icon: 'wine_bar', link: '' },
-        { title: 'Inventory', icon: 'inventory', link: '' },
-        { title: 'Clients', icon: 'supervisor_account', link: '' },
-        { title: 'Users', icon: 'admin_panel_settings', link: '' },
+        { title: 'Products', icon: 'wine_bar', routeName: 'Products' },
+        { title: 'Inventory', icon: 'inventory', routeName: '' },
+        { title: 'Clients', icon: 'supervisor_account', routeName: '' },
+        { title: 'Users', icon: 'admin_panel_settings', routeName: '' },
       ],
     };
   },

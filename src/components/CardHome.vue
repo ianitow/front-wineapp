@@ -1,15 +1,11 @@
 <template>
-  <div class="button-container flex items-center justify-center">
+  <div class="button-container flex items-center justify-center" @click="onClickOnCard">
     <div class="col flex items-center justify-center">
-      <div
-        class="row full-width flex text-weight-bold items-center justify-center q-mb-xs"
-      >
+      <div class="row full-width flex text-weight-bold items-center justify-center q-mb-xs">
         <q-icon :name="icon" size="lg"></q-icon>
       </div>
       <div class="row">
-        <span class="text-weight-bold text-center text-subtitle">{{
-          title
-        }}</span>
+        <span class="text-weight-bold text-center text-subtitle">{{ title }}</span>
       </div>
     </div>
   </div>
@@ -17,7 +13,12 @@
 
 <script>
 export default {
-  props: ['title', 'icon', 'link'],
+  props: ['title', 'icon', 'routeName'],
+  methods: {
+    onClickOnCard() {
+      this.$router.push(this.routeName);
+    },
+  },
 };
 </script>
 
