@@ -1,6 +1,5 @@
 export const ptBR = {
   errors: {
-    'Network Error': 'Erro de conexão',
     EMAIL_NOT_EXISTS: 'Email não existente!',
     EMAIL_ALREADY_EXISTS: 'Email já existente, por favor, escolha outro',
     PASSWORD_INVALID: 'Senha invalida!',

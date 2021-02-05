@@ -19,7 +19,7 @@ export default {
     return {
       options: [
         { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
-        { title: 'Orders', icon: 'inventory', routeName: '' },
+        { title: 'Orders', icon: 'list_alt', routeName: '' },
         { title: 'Clients', icon: 'supervisor_account', routeName: '' },
         { title: 'Users', icon: 'admin_panel_settings', routeName: '' },
       ],

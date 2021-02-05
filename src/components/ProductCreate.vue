@@ -35,6 +35,7 @@
             filled
             v-model="price"
             label="Preço"
+            prefix="R$"
             mask="#.##"
             fill-mask="0"
             reverse-fill-mask
