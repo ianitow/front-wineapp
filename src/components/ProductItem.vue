@@ -15,7 +15,11 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <q-item dense v-for="(product, index) in Object.values(product)" :key="`${product.name} - ${index}`">
+    <q-item
+      dense
+      v-for="(product, index) in Object.values(product)"
+      :key="`${product.name} - ${index}`"
+    >
       <q-item-section avatar>
         <q-icon color="primary" :name="icon" />
       </q-item-section>
@@ -23,20 +27,30 @@
       <q-item-section>
         <q-item-label>{{ product.name }}</q-item-label>
         <q-item-label caption>
-          {{ product.size }}L - {{ product.quantity }} - R${{ product.price.toFixed(2) }}</q-item-label
+          {{ product.size }}L - {{ product.quantity }} - R${{
+            product.price.toFixed(2)
+          }}</q-item-label
         >
       </q-item-section>
 
       <div class="flex align-center q-gutter-xs justify-center">
         <q-btn dense size="sm" color="secondary" label="Editar" />
-        <q-btn size="sm" dense color="primary" label="Deletar" @click="toggleDialogExclude(product)" />
+        <q-btn
+          size="sm"
+          dense
+          color="primary"
+          label="Deletar"
+          @click="toggleDialogExclude(product)"
+        />
       </div>
     </q-item>
   </div>
 </template>
 
 <script>
+import { SUCCESS } from 'src/configs/Notify';
 import { createNamespacedHelpers } from 'vuex';
+import { ptBR } from 'src/i18n';
 
 const { mapActions } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle
@@ -59,7 +73,7 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       this.deleteProductRequest({ id: this.productOpened._id })
         .then(() => {
-          console.log('deletado');
+          this.$q.notify({ ...SUCCESS, message: ptBR.success.PRODUCT_DELETED_SUCCESS });
         })
         .catch(err => {
           console.log('ERR', err);

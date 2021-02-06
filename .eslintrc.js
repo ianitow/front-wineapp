@@ -46,7 +46,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
-    curly: ['error', 'all'],
+    curly: 0,
     'no-param-reassign': 'off',
     'space-before-function-paren': 'off',
     'import/first': 'off',

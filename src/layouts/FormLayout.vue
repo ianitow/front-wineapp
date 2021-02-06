@@ -12,11 +12,6 @@
 export default {
   props: ['onSubmit'],
   name: 'FormLayout',
-  beforeMount() {
-    if (localStorage.token) {
-      this.$router.push({ name: 'Dashboard' });
-    }
-  },
 };
 </script>
 <style lang="stylus" scoped>

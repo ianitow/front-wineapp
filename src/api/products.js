@@ -17,17 +17,26 @@ export function get() {
   });
 }
 
-export function post() {
+export function post({
+  name, quantity, size, price, notes,
+}) {
   return new Promise((resolve, reject) => {
     api
-      .get('/products')
+      .post('/products', {
+        name,
+        quantity,
+        size,
+        price,
+        notes,
+      })
       .then(({ data }) => {
         resolve(data);
       })
-      .catch(({ response }) => {
+      .catch(({ message, response }) => {
         if (!response) {
-          reject({ type: 'UNKNOWN' });
+          reject({ type: 'UNKNOWN', message });
         }
+        reject(response.data);
       });
   });
 }

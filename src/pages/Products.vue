@@ -24,10 +24,7 @@ const {
   mapActions,
 
   mapGetters,
-} = createNamespacedHelpers(
-  // eslint-disable-next-line comma-dangle
-  'product'
-);
+} = createNamespacedHelpers('product');
 export default {
   components: { ProductGroup, ProductCreate },
   data() {

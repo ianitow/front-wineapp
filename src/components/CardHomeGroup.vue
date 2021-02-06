@@ -18,10 +18,12 @@ export default {
   data() {
     return {
       options: [
-        { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
         { title: 'Orders', icon: 'list_alt', routeName: '' },
+        { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
+
         { title: 'Clients', icon: 'supervisor_account', routeName: '' },
         { title: 'Users', icon: 'admin_panel_settings', routeName: '' },
+        { title: 'Logout', icon: 'logout', routeName: '' },
       ],
     };
   },
