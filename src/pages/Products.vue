@@ -4,8 +4,19 @@
       <product-create v-on:onCancelButton="toggleDialogCreateOpened" />
     </div>
     <div>
-      <q-input bg-color="white" rounded outlined label="Search..." class="q-mb-md" />
-      <product-group iconHeader="local_bar" icon="inventory_2" :products="this.getProductsByGroup" />
+      <q-input
+        v-model="searching"
+        bg-color="white"
+        rounded
+        outlined
+        label="Search..."
+        class="q-mb-md"
+      />
+      <product-group
+        iconHeader="local_bar"
+        icon="inventory_2"
+        :products="this.getProductsByGroup"
+      />
     </div>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn fab icon="add" color="primary" @click="toggleDialogCreateOpened" />
@@ -14,6 +25,11 @@
 </template>
 
 <script>
+/** TODO
+ *
+ * Debounce in search
+ *
+ *  */
 import ProductGroup from 'src/components/ProductGroup.vue';
 import { createNamespacedHelpers } from 'vuex';
 import ProductCreate from 'src/components/ProductCreate.vue';
@@ -28,7 +44,9 @@ const {
 export default {
   components: { ProductGroup, ProductCreate },
   data() {
-    return { isDialogCreateOpened: false };
+    return {
+      isDialogCreateOpened: false,
+    };
   },
   mounted() {
     this.getProductsRequest().catch(err => {
@@ -42,7 +60,15 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(['getProductsByGroup']),
+    searching: {
+      get() {
+        return this.$store.state.product.searching;
+      },
+      set(newValue) {
+        this.$store.commit('product/SET_SEARCH_STRING', newValue);
+      },
+    },
+    ...mapGetters(['getProductsByGroup', 'getSearchString']),
     ...mapState({
       products: state => state.products,
     }),

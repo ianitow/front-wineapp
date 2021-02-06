@@ -21,12 +21,15 @@ export function deleteProductRequest({ dispatch }, { id }) {
       .catch(err => reject(err));
   });
 }
-export function createProductRequest({ dispatch }, {
-  name, quantity, size, price, notes
-}) {
+// eslint-disable-next-line object-curly-newline
+export function createProductRequest({ dispatch }, { name, quantity, size, price, notes }) {
   return new Promise((resolve, reject) => {
     ProductApi.post({
-      name, quantity, size, price, notes
+      name,
+      quantity,
+      size,
+      price,
+      notes,
     })
       .then(() => resolve(dispatch('getProductsRequest')))
       .catch(err => reject(err));

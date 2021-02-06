@@ -6,7 +6,13 @@
       :key="`${key} - ${indexTwo}`"
       class="q-mb-xs"
     >
-      <q-expansion-item dense :group="`${key}`" :icon="iconHeader" :label="key" header-class="text-primary">
+      <q-expansion-item
+        dense
+        :group="`${key}`"
+        :icon="iconHeader"
+        :label="key"
+        header-class="text-primary"
+      >
         <product-item :icon="icon" :product="value" />
       </q-expansion-item>
     </q-list>

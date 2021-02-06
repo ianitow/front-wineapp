@@ -9,7 +9,7 @@ export const ptBR = {
     TOKEN_INVALID: 'Token invalido, faça login novamente!',
     TOKEN_BAD_FORMAT: 'Token mal formado, faça login novamente!',
     // PRODUCTS
-
+    PRODUCT_DATA_INVALID: 'Produto invalido, por favor, informe os dados corretos.',
     UNKNOWN: 'Erro desconhecido, por favor, contate o administrador',
   },
   success: {

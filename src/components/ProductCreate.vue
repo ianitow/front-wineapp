@@ -98,7 +98,7 @@ export default {
         .catch(({ type }) => {
           this.$q.notify({
             ...ERROR,
-            message: ptBR.success[type],
+            message: ptBR.errors[type],
           });
         });
     },

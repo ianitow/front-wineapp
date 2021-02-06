@@ -1,4 +1,4 @@
 export default function() {
-  const state = { products: [] };
+  const state = { searching: '', products: [] };
   return state;
 }
