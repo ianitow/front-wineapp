@@ -1,36 +1,18 @@
 <template>
   <form-layout :onSubmit="onSubmit">
-    <transition-group
-      appear
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-    >
+    <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <div key="intern">
         <div class="row q-mb-lg">
           <span class="text-h5">Faça seu login</span>
         </div>
         <div class="row">
           <div class="col q-gutter-y-md">
-            <q-input
-              v-model="name"
-              class="full-width "
-              outlined
-              label="Nome Completo"
-              required
-            >
+            <q-input v-model="name" class="full-width " outlined label="Nome Completo" required>
               <template v-slot:prepend>
                 <q-icon name="person" />
               </template>
             </q-input>
-            <q-input
-              type="email"
-              required
-              maxlength="30"
-              v-model="email"
-              class="full-width "
-              outlined
-              label="Email"
-            >
+            <q-input type="email" required maxlength="30" v-model="email" class="full-width " outlined label="Email">
               <template v-slot:prepend>
                 <q-icon name="email" />
               </template>
@@ -48,14 +30,7 @@
                 <q-icon name="lock" />
               </template>
             </q-input>
-            <q-input
-              maxlength="40"
-              v-model="address"
-              class="full-width "
-              outlined
-              required
-              label="Address"
-            >
+            <q-input maxlength="40" v-model="address" class="full-width " outlined required label="Address">
               <template v-slot:prepend>
                 <q-icon name="home" />
               </template>
@@ -73,20 +48,13 @@
                 <q-icon name="phone" />
               </template>
             </q-input>
-            <q-btn
-              type="submit"
-              class="btn-sbmt full-width"
-              color="primary"
-              label="Register"
-            />
+            <q-btn type="submit" class="btn-sbmt full-width" color="primary" label="Register" />
           </div>
         </div>
         <div class="row q-my-xl">
           <span class="col text-subtitle2 text-center">
             Não possui login?
-            <span class="text-primary link" @click="goTo"
-              >Faça login</span
-            ></span
+            <span class="text-primary link" @click="goTo">Faça login</span></span
           >
         </div>
       </div>
@@ -110,7 +78,7 @@ export default {
   },
   components: { FormLayout },
   methods: {
-    ...mapActions('account', ['registerRequest']),
+    ...mapActions('account', ['registerRequest', 'loginRequest']),
     goTo() {
       this.$router.push({ name: 'LoginForm' });
     },
@@ -123,14 +91,27 @@ export default {
         numberPhone: this.numberPhone,
       })
         .then(options => {
-          this.$q.notify({
-            timeout: 1000,
-            ...options,
-          });
-          this.$router.push({ name: 'Dashboard' });
+          this.loginRequest({
+            email: this.email,
+            password: this.password,
+          })
+            .then(({ token }) => {
+              window.localStorage.setItem('token', token);
+
+              this.$q.notify({
+                timeout: 1000,
+                ...options,
+              });
+              this.$router.push({ name: 'Dashboard' });
+            })
+            .catch(err => {
+              this.$q.notify({
+                ...err,
+                timeout: 3000,
+              });
+            });
         })
         .catch(err => {
-          console.log(err);
           this.$q.notify({
             ...err,
             timeout: 3000,

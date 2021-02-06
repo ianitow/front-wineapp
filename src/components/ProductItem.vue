@@ -27,9 +27,9 @@
         >
       </q-item-section>
 
-      <div class="flex q-gutter-xs">
-        <q-btn dense color="secondary" label="Editar" />
-        <q-btn dense color="primary" label="Deletar" @click="toggleDialogExclude(product)" />
+      <div class="flex align-center q-gutter-xs justify-center">
+        <q-btn dense size="sm" color="secondary" label="Editar" />
+        <q-btn size="sm" dense color="primary" label="Deletar" @click="toggleDialogExclude(product)" />
       </div>
     </q-item>
   </div>
@@ -68,7 +68,9 @@ export default {
   },
   watch: {
     isDialogOpened(newState) {
-      if (!newState) this.productOpened = {};
+      if (!newState) {
+        this.productOpened = {};
+      }
     },
   },
   props: ['product', 'icon'],

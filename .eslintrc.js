@@ -46,7 +46,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
-    curly: ['error', 'multi'],
+    curly: ['error', 'all'],
     'no-param-reassign': 'off',
     'space-before-function-paren': 'off',
     'import/first': 'off',
@@ -72,6 +72,7 @@ module.exports = {
     ],
     'max-len': ['error', { code: 120 }],
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'nonblock-statement-body-position': ['error', 'below'],
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },

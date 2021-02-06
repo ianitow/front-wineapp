@@ -1,55 +1,30 @@
 <template>
   <form-layout :onSubmit="onSubmit">
-    <transition-group
-      appear
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-    >
+    <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <div key="intern">
         <div class="row q-mb-lg">
           <span class="text-h5">Faça seu login</span>
         </div>
         <div class="row">
           <div class="col q-gutter-y-md">
-            <q-input
-              required
-              type="email"
-              v-model="email"
-              class="full-width "
-              outlined
-              label="Email"
-            >
+            <q-input required type="email" v-model="email" class="full-width " outlined label="Email">
               <template v-slot:prepend>
                 <q-icon name="email" />
               </template>
             </q-input>
-            <q-input
-              v-model="password"
-              type="password"
-              class="full-width"
-              outlined
-              label="Password"
-              required
-            >
+            <q-input v-model="password" type="password" class="full-width" outlined label="Password" required>
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>
             </q-input>
 
-            <q-btn
-              type="submit"
-              class="btn-sbmt full-width"
-              color="primary"
-              label="Login"
-            />
+            <q-btn type="submit" class="btn-sbmt full-width" color="primary" label="Login" />
           </div>
         </div>
         <div class="row q-my-xl">
           <span class="col text-subtitle2 text-center">
             Não possui login?
-            <span class="text-primary link" @click="goTo"
-              >Crie uma conta</span
-            ></span
+            <span class="text-primary link" @click="goTo">Crie uma conta</span></span
           >
         </div>
       </div>
@@ -71,6 +46,7 @@ export default {
       password: '123321',
     };
   },
+
   methods: {
     ...mapActions('account', ['loginRequest']),
     goTo() {
@@ -83,7 +59,7 @@ export default {
       })
         .then(options => {
           const { token } = options;
-          window.localStorage.setItem('token', JSON.stringify(token));
+          window.localStorage.setItem('token', token);
 
           this.$q.notify({
             spinner: QSpinnerGears,

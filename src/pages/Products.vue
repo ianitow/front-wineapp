@@ -17,6 +17,7 @@
 import ProductGroup from 'src/components/ProductGroup.vue';
 import { createNamespacedHelpers } from 'vuex';
 import ProductCreate from 'src/components/ProductCreate.vue';
+import { ptBR } from 'src/i18n';
 
 const {
   mapState,
@@ -33,7 +34,15 @@ export default {
     return { isDialogCreateOpened: false };
   },
   mounted() {
-    this.getProductsRequest();
+    this.getProductsRequest().catch(err => {
+      this.$q.notify({
+        color: 'red',
+        textColor: 'white',
+        icon: 'warning',
+        message: ptBR.errors[err.type],
+        position: 'top',
+      });
+    });
   },
   computed: {
     ...mapGetters(['getProductsByGroup']),
