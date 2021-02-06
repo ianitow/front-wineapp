@@ -1,29 +1,26 @@
 import { api } from '../boot/axios';
 
+export const setHeaderInterceptorInAxios = token => {
+  api.interceptors.request.use(async config => {
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
+  return token;
+};
+
 export function login(email, password) {
   return new Promise((resolve, reject) => {
     api
       .post('/users/token', { password, email })
       .then(({ data }) => {
-        resolve(data.authorization);
+        resolve(setHeaderInterceptorInAxios(data.authorization));
       })
       .catch(({ response }) => {
         if (!response) {
           reject({ type: 'UNKNOWN' });
           return;
         }
-        switch (response.status) {
-          case 404:
-            reject({ type: 'EMAIL_NOT_EXISTS' });
-            break;
-          case 401:
-            if (response.data.message.toString().includes('Password invalid')) reject({ type: 'PASSWORD_INVALID' });
-
-            break;
-          default:
-            reject({ type: 'UNKNOWN' });
-            break;
-        }
+        reject(response.data);
       });
   });
 }
@@ -45,15 +42,7 @@ export function register(name, email, password, address, numberPhone) {
           reject({ type: 'UNKNOWN' });
           return;
         }
-        switch (response.status) {
-          case 409:
-            reject({ type: 'EMAIL_ALREADY_EXISTS' });
-            break;
-
-          default:
-            reject({ type: 'UNKNOWN' });
-            break;
-        }
+        reject(response.data);
       });
   });
 }

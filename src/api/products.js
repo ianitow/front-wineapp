@@ -8,7 +8,9 @@ export function get() {
         resolve(data);
       })
       .catch(({ message, response }) => {
-        if (!response) reject({ type: 'UNKNOWN', message });
+        if (!response) {
+          reject({ type: 'UNKNOWN', message });
+        }
 
         reject(response.data);
       });
@@ -23,7 +25,9 @@ export function post() {
         resolve(data);
       })
       .catch(({ response }) => {
-        if (!response) reject({ type: 'UNKNOWN' });
+        if (!response) {
+          reject({ type: 'UNKNOWN' });
+        }
       });
   });
 }
@@ -36,7 +40,9 @@ export function exclude({ id }) {
         resolve(data);
       })
       .catch(({ message, response }) => {
-        if (!response) reject({ type: 'UNKNOWN', message });
+        if (!response) {
+          reject({ type: 'UNKNOWN', message });
+        }
 
         reject(response.data);
       });
@@ -51,7 +57,9 @@ export function put() {
         resolve(data);
       })
       .catch(({ message, response }) => {
-        if (!response) reject({ type: 'UNKNOWN', message });
+        if (!response) {
+          reject({ type: 'UNKNOWN', message });
+        }
 
         reject(response.data);
       });
