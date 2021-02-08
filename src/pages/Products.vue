@@ -42,7 +42,10 @@ const {
   mapGetters,
 } = createNamespacedHelpers('product');
 export default {
-  components: { ProductGroup, ProductCreate },
+  components: {
+    ProductGroup,
+    ProductCreate,
+  },
   data() {
     return {
       isDialogCreateOpened: false,

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <q-dialog v-model="isDialogOpened" persistent>
+    <div v-if="isDialogEditOpened">
+      <product-edit :product="productOpened" v-on:onCancelButton="toggleDialog('edit')" />
+    </div>
+    <q-dialog v-model="isDialogDeleteOpened" persistent>
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar icon="do_not_disturb_on" color="primary" text-color="white" />
@@ -34,13 +37,19 @@
       </q-item-section>
 
       <div class="flex align-center q-gutter-xs justify-center">
-        <q-btn dense size="sm" color="secondary" label="Editar" />
+        <q-btn
+          dense
+          size="sm"
+          color="secondary"
+          label="Editar"
+          @click="toggleDialog('edit', product)"
+        />
         <q-btn
           size="sm"
           dense
           color="primary"
           label="Deletar"
-          @click="toggleDialogExclude(product)"
+          @click="toggleDialog('delete', product)"
         />
       </div>
     </q-item>
@@ -51,29 +60,51 @@
 import { SUCCESS } from 'src/configs/Notify';
 import { createNamespacedHelpers } from 'vuex';
 import { ptBR } from 'src/i18n';
+import ProductEdit from './ProductEdit.vue';
 
 const { mapActions } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle
   'product'
 );
 export default {
+  components: {
+    ProductEdit,
+  },
   data() {
     return {
-      isDialogOpened: false,
+      isDialogDeleteOpened: false,
+      isDialogEditOpened: false,
       productOpened: {},
     };
   },
   methods: {
     ...mapActions(['deleteProductRequest']),
-    toggleDialogExclude(product) {
-      this.isDialogOpened = !this.isDialogOpened;
-      this.productOpened = { ...product };
+    toggleDialog(type, product) {
+      switch (type) {
+        case 'delete':
+          this.isDialogDeleteOpened = !this.isDialogDeleteOpened;
+          break;
+        case 'edit':
+          this.isDialogEditOpened = !this.isDialogEditOpened;
+          break;
+        default:
+          break;
+      }
+      this.productOpened = {
+        ...product,
+      };
     },
+
     makeDeleteRequest() {
-      // eslint-disable-next-line no-underscore-dangle
-      this.deleteProductRequest({ id: this.productOpened._id })
+      this.deleteProductRequest({
+        // eslint-disable-next-line no-underscore-dangle
+        id: this.productOpened._id,
+      })
         .then(() => {
-          this.$q.notify({ ...SUCCESS, message: ptBR.success.PRODUCT_DELETED_SUCCESS });
+          this.$q.notify({
+            ...SUCCESS,
+            message: ptBR.success.PRODUCT_DELETED_SUCCESS,
+          });
         })
         .catch(err => {
           console.log('ERR', err);
@@ -81,12 +112,13 @@ export default {
     },
   },
   watch: {
-    isDialogOpened(newState) {
+    toggleDialog(newState) {
       if (!newState) {
         this.productOpened = {};
       }
     },
   },
+
   props: ['product', 'icon'],
 };
 </script>

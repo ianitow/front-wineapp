@@ -73,7 +73,7 @@ module.exports = {
     'max-len': ['error', { code: 120 }],
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'nonblock-statement-body-position': ['error', 'below'],
-    // allow debugger during development only
+    // 'object-curly-newline': ['error', { ObjectExpression: 'always', ObjectPattern: 'never' }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
 };

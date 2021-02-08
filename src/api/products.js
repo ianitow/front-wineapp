@@ -1,15 +1,19 @@
+/* eslint-disable object-curly-newline */
 import { api } from '../boot/axios';
 
-export function get() {
+export function get({ id = '' }) {
   return new Promise((resolve, reject) => {
     api
-      .get('/products')
+      .get(`/products/${id}`)
       .then(({ data }) => {
         resolve(data);
       })
       .catch(({ message, response }) => {
         if (!response) {
-          reject({ type: 'UNKNOWN', message });
+          reject({
+            type: 'UNKNOWN',
+            message,
+          });
         }
 
         reject(response.data);
@@ -17,9 +21,8 @@ export function get() {
   });
 }
 
-export function post({
-  name, quantity, size, price, notes,
-}) {
+// eslint-disable-next-line object-curly-newline
+export function post({ name, quantity, size, price, notes }) {
   return new Promise((resolve, reject) => {
     api
       .post('/products', {
@@ -34,7 +37,10 @@ export function post({
       })
       .catch(({ message, response }) => {
         if (!response) {
-          reject({ type: 'UNKNOWN', message });
+          reject({
+            type: 'UNKNOWN',
+            message,
+          });
         }
         reject(response.data);
       });
@@ -50,7 +56,10 @@ export function exclude({ id }) {
       })
       .catch(({ message, response }) => {
         if (!response) {
-          reject({ type: 'UNKNOWN', message });
+          reject({
+            type: 'UNKNOWN',
+            message,
+          });
         }
 
         reject(response.data);
@@ -58,16 +67,25 @@ export function exclude({ id }) {
   });
 }
 
-export function put() {
+export function put({ id, name, quantity, size, price, notes }) {
   return new Promise((resolve, reject) => {
     api
-      .get('/products')
+      .put(`/products/${id}`, {
+        name,
+        quantity,
+        size,
+        price,
+        notes,
+      })
       .then(({ data }) => {
         resolve(data);
       })
       .catch(({ message, response }) => {
         if (!response) {
-          reject({ type: 'UNKNOWN', message });
+          reject({
+            type: 'UNKNOWN',
+            message,
+          });
         }
 
         reject(response.data);

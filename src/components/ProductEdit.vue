@@ -2,7 +2,7 @@
   <q-dialog v-model="always" persistent @hide="onCancelButton">
     <q-card class="full-width">
       <q-card-section>
-        <div class="text-h6">Criar novo produto</div>
+        <div class="text-h6">Editar produto</div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
@@ -48,10 +48,12 @@
           <q-input filled v-model="notes" label="Observação (Opcional)" lazy-rules />
         </div>
       </q-card-section>
-
+      <div class="flex text-center justify-center">
+        <b class="text-primary">ATENÇÃO: Isso alterará pedidos antigos!</b>
+      </div>
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" color="primary" v-close-popup />
-        <q-btn label="Criar" color="primary" v-close-popup @click="onClickCreateButton" />
+        <q-btn label="Editar" color="primary" v-close-popup @click="onClickEditButton" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -64,24 +66,27 @@ import { ERROR, SUCCESS } from 'src/configs/Notify';
 
 const { mapActions } = createNamespacedHelpers('product');
 export default {
+  props: ['product'],
   data() {
     return {
-      name: '',
-      sizeInLiters: 0,
-      quantity: 0,
-      price: 0.0,
-      notes: '',
+      name: this.product.name,
+      sizeInLiters: this.product.size,
+      quantity: this.product.quantity,
+      price: this.product.price,
+      notes: this.product.notes || '',
       always: true,
     };
   },
 
   methods: {
-    ...mapActions(['createProductRequest']),
+    ...mapActions(['createProductRequest', 'editProductRequest']),
     onCancelButton() {
       this.$emit('onCancelButton');
     },
-    onClickCreateButton() {
-      this.createProductRequest({
+    onClickEditButton() {
+      this.editProductRequest({
+        // eslint-disable-next-line no-underscore-dangle
+        id: this.product._id,
         name: this.name,
         size: this.sizeInLiters,
         quantity: this.quantity,
@@ -91,7 +96,7 @@ export default {
         .then(() => {
           this.$q.notify({
             ...SUCCESS,
-            message: ptBR.success.PRODUCT_CREATED_SUCCESS,
+            message: ptBR.success.PRODUCT_EDIT_SUCCESS,
           });
         })
         .catch(({ type }) => {

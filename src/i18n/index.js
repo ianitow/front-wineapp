@@ -17,5 +17,6 @@ export const ptBR = {
     REGISTER_SUCCESS: 'Registro efetuado com sucesso!',
     PRODUCT_DELETED_SUCCESS: 'Produto deletado com sucesso!',
     PRODUCT_CREATED_SUCCESS: 'Produto criado com sucesso!',
+    PRODUCT_EDIT_SUCCESS: 'Produto editado com sucesso!',
   },
 };
