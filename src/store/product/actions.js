@@ -25,7 +25,7 @@ export function getProductRequest(state, { id }) {
       });
   });
 }
-export function editProductRequest({ dispatch }, { id, name, quantity, size, price, notes }) {
+export function editProductRequest({ dispatch }, { id, name, quantity, size, price }) {
   return new Promise((resolve, reject) => {
     ProductApi.put({
       id,
@@ -33,7 +33,6 @@ export function editProductRequest({ dispatch }, { id, name, quantity, size, pri
       quantity,
       size,
       price,
-      notes,
     })
       .then(() => {
         resolve(dispatch('getProductsRequest'));
@@ -52,14 +51,13 @@ export function deleteProductRequest({ dispatch }, { id }) {
   });
 }
 // eslint-disable-next-line object-curly-newline
-export function createProductRequest({ dispatch }, { name, quantity, size, price, notes }) {
+export function createProductRequest({ dispatch }, { name, quantity, size, price }) {
   return new Promise((resolve, reject) => {
     ProductApi.post({
       name,
       quantity,
       size,
       price,
-      notes,
     })
       .then(() => resolve(dispatch('getProductsRequest')))
       .catch(err => reject(err));

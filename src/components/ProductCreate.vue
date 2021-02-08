@@ -45,7 +45,6 @@
             input-class="text-right"
             :rules="[val => val > 0 || 'Por favor, digite um valor valido']"
           />
-          <q-input filled v-model="notes" label="Observação (Opcional)" lazy-rules />
         </div>
       </q-card-section>
 
@@ -70,7 +69,7 @@ export default {
       sizeInLiters: 0,
       quantity: 0,
       price: 0.0,
-      notes: '',
+
       always: true,
     };
   },
