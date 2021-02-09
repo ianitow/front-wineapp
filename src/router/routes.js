@@ -13,6 +13,11 @@ const routes = [
         path: 'products',
         component: () => import('pages/Products.vue'),
       },
+      {
+        name: 'Clients',
+        path: 'clients',
+        component: () => import('pages/Clients.vue'),
+      },
     ],
     meta: {
       requiresAuth: true,

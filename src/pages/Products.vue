@@ -84,9 +84,3 @@ export default {
   },
 };
 </script>
-<style lang="stylus" scoped>
-.item-header{
-  background:blue;
-  color:white;
-}
-</style>

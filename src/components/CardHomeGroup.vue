@@ -21,7 +21,7 @@ export default {
         { title: 'Orders', icon: 'list_alt', routeName: '' },
         { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
 
-        { title: 'Clients', icon: 'supervisor_account', routeName: '' },
+        { title: 'Clients', icon: 'supervisor_account', routeName: 'Clients' },
         { title: 'Users', icon: 'admin_panel_settings', routeName: '' },
         { title: 'Logout', icon: 'logout', routeName: '' },
       ],
