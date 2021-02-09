@@ -13,7 +13,9 @@
             v-model="name"
             label="Nome do produto"
             lazy-rules
-            :rules="[val => (val && val.length > 0) || 'Por favor, digite algo']"
+            :rules="[
+              val => (val && val.length > 4) || 'Por favor, digite algo maior que 4 caracteresr',
+            ]"
           />
           <q-input
             type="number"
