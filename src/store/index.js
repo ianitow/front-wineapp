@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import account from './account';
-
 import product from './product';
-// import example from './module-example'
+
+import customer from './customer';
 
 Vue.use(Vuex);
 
@@ -21,6 +21,7 @@ export default function(/* { ssrContext } */) {
     modules: {
       account,
       product,
+      customer,
     },
 
     // enable strict mode (adds overhead!)
