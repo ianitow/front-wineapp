@@ -71,7 +71,7 @@ export default {
         this.$store.commit('product/SET_SEARCH_STRING', newValue);
       },
     },
-    ...mapGetters(['getProductsByGroup', 'getSearchString']),
+    ...mapGetters(['getProductsByGroup']),
     ...mapState({
       products: state => state.products,
     }),

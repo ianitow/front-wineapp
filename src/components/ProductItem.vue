@@ -3,21 +3,16 @@
     <div v-if="isDialogEditOpened">
       <product-edit :product="productOpened" v-on:onCancelButton="toggleDialog('edit')" />
     </div>
-    <q-dialog v-model="isDialogDeleteOpened" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="do_not_disturb_on" color="primary" text-color="white" />
-          <span class="q-ml-sm"
-            >Deseja deletar o produto? <br /><b>{{ productOpened.name }}</b>
-          </span>
-        </q-card-section>
+    <div v-if="isDialogDeleteOpened">
+      <dialog-modal
+        :message="`Deseja realmente deletar o produto? `"
+        :boldMessage="`${productOpened.name}`"
+        icon="person"
+        v-on:onHideButton="toggleDialog('delete')"
+        v-on:onSubmitButton="makeDeleteRequest"
+      />
+    </div>
 
-        <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Deletar" @click="makeDeleteRequest" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
     <q-item
       dense
       v-for="(product, index) in Object.values(product)"
@@ -61,6 +56,7 @@ import { SUCCESS } from 'src/configs/Notify';
 import { createNamespacedHelpers } from 'vuex';
 import { ptBR } from 'src/i18n';
 import ProductEdit from './ProductEdit.vue';
+import DialogModal from './DialogModal.vue';
 
 const { mapActions } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle
@@ -69,6 +65,7 @@ const { mapActions } = createNamespacedHelpers(
 export default {
   components: {
     ProductEdit,
+    DialogModal,
   },
   data() {
     return {
@@ -83,6 +80,7 @@ export default {
       switch (type) {
         case 'delete':
           this.isDialogDeleteOpened = !this.isDialogDeleteOpened;
+
           break;
         case 'edit':
           this.isDialogEditOpened = !this.isDialogEditOpened;
@@ -99,16 +97,13 @@ export default {
       this.deleteProductRequest({
         // eslint-disable-next-line no-underscore-dangle
         id: this.productOpened._id,
-      })
-        .then(() => {
-          this.$q.notify({
-            ...SUCCESS,
-            message: ptBR.success.PRODUCT_DELETED_SUCCESS,
-          });
-        })
-        .catch(err => {
-          console.log('ERR', err);
+      }).then(() => {
+        this.$q.notify({
+          ...SUCCESS,
+          message: ptBR.success.PRODUCT_DELETED_SUCCESS,
         });
+      });
+      this.isDialogDeleteOpened = false;
     },
   },
   watch: {
