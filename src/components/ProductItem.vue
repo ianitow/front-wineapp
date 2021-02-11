@@ -53,8 +53,9 @@
 
 <script>
 import { SUCCESS } from 'src/configs/Notify';
-import { createNamespacedHelpers } from 'vuex';
 import { ptBR } from 'src/i18n';
+import { createNamespacedHelpers } from 'vuex';
+
 import ProductEdit from './ProductEdit.vue';
 import DialogModal from './DialogModal.vue';
 
