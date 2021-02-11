@@ -18,5 +18,6 @@ export const ptBR = {
     PRODUCT_DELETED_SUCCESS: 'Produto deletado com sucesso!',
     PRODUCT_CREATED_SUCCESS: 'Produto criado com sucesso!',
     PRODUCT_EDIT_SUCCESS: 'Produto editado com sucesso!',
+    CUSTOMER_DELETED_SUCCESS: 'Cliente deletado com sucesso!',
   },
 };

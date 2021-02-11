@@ -13,7 +13,6 @@ export function getCustomersRequest({ commit }) {
       });
   });
 }
-// eslint-disable-next-line no-unused-vars
 export function getCustomerRequest(state, { id }) {
   return new Promise((resolve, reject) => {
     CustomerApi.get({ id })
@@ -35,7 +34,7 @@ export function editCustomerRequest({ dispatch }, { id, name, quantity, size, pr
       price,
     })
       .then(() => {
-        resolve(dispatch('getProductsRequest'));
+        resolve(dispatch('getCustomersRequest'));
       })
       .catch(err => {
         reject(err);
@@ -46,7 +45,8 @@ export function editCustomerRequest({ dispatch }, { id, name, quantity, size, pr
 export function deleteCustomerRequest({ dispatch }, { id }) {
   return new Promise((resolve, reject) => {
     CustomerApi.delete({ id })
-      .then(() => resolve(dispatch('getProductsRequest')))
+      .then(() => resolve(dispatch('getCustomersRequest')))
+
       .catch(err => reject(err));
   });
 }
@@ -59,7 +59,7 @@ export function createCustomerRequest({ dispatch }, { name, quantity, size, pric
       size,
       price,
     })
-      .then(() => resolve(dispatch('getProductsRequest')))
+      .then(() => resolve(dispatch('getCustomersRequest')))
       .catch(err => reject(err));
   });
 }

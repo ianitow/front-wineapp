@@ -49,8 +49,8 @@ export function exclude({ id }) {
   return new Promise((resolve, reject) => {
     api
       .delete(`/customers/${id}`)
-      .then(({ data }) => {
-        resolve(data);
+      .then(({ status }) => {
+        resolve(status);
       })
       .catch(({ message, response }) => {
         if (!response) {
