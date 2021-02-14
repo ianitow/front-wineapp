@@ -47,7 +47,7 @@
           />
         </div>
       </q-card-section>
-      <div class="flex text-center justify-center">
+      <div class="flex text-center justify-center q-mb-md">
         <b class="text-primary">ATENÇÃO: Isso alterará pedidos antigos!</b>
       </div>
       <q-card-actions align="right">

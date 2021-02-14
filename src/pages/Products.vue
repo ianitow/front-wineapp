@@ -1,8 +1,7 @@
 <template>
   <q-page padding>
-    <div v-if="isDialogCreateOpened">
-      <product-create v-on:onCancelButton="toggleDialogCreateOpened" />
-    </div>
+    <product-create v-if="isDialogCreateOpened" v-on:onCancelButton="toggleDialogCreateOpened" />
+
     <div>
       <q-input
         v-model="searching"
