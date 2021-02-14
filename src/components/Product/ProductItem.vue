@@ -1,17 +1,19 @@
 <template>
   <div>
-    <div v-if="isDialogEditOpened">
-      <product-edit :product="productOpened" v-on:onCancelButton="toggleDialog('edit')" />
-    </div>
-    <div v-if="isDialogDeleteOpened">
-      <dialog-modal
-        :message="`Deseja realmente deletar o produto? `"
-        :boldMessage="`${productOpened.name}`"
-        icon="person"
-        v-on:onHideButton="toggleDialog('delete')"
-        v-on:onSubmitButton="makeDeleteRequest"
-      />
-    </div>
+    <product-edit
+      v-if="isDialogEditOpened"
+      :product="productOpened"
+      @:onCancelButton="toggleDialog('edit')"
+    />
+
+    <dialog-modal
+      v-if="isDialogDeleteOpened"
+      :message="`Deseja realmente deletar o produto? `"
+      :boldMessage="`${productOpened.name}`"
+      icon="person"
+      @:onHideButton="toggleDialog('delete')"
+      @:onSubmitButton="makeDeleteRequest"
+    />
 
     <q-item
       dense
