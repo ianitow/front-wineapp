@@ -22,12 +22,12 @@ export function get({ id = '' }) {
 }
 
 // eslint-disable-next-line object-curly-newline
-export function post({ name, numberPhone, address }) {
+export function post({ name, number_phone, address }) {
   return new Promise((resolve, reject) => {
     api
       .post('/customers', {
         name,
-        number_phone: numberPhone,
+        number_phone,
         address,
       })
       .then(({ data }) => {

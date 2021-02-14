@@ -2,7 +2,7 @@
   <q-dialog ref="dialogComponent" v-model="always" persistent @hide="onHideButton">
     <q-card class="full-width">
       <q-card-section>
-        <div class="text-h6">Editar cliente</div>
+        <div class="text-h6">Criar cliente</div>
       </q-card-section>
       <q-form @submit.prevent="onSubmit">
         <q-card-section class="q-pt-none">
@@ -46,13 +46,10 @@
             </template>
           </q-input>
         </q-card-section>
-        <div class="flex text-center justify-center q-mb-md">
-          <b class="text-primary">ATENÇÃO: Isso alterará pedidos antigos!</b>
-        </div>
 
-        <q-card-actions align="right">
+        <q-card-actions align="right" class="q-mb-xs">
           <q-btn flat label="Cancelar" color="primary" v-close-popup @click="onCancelButton" />
-          <q-btn type="submit" label="Editar" color="primary" />
+          <q-btn type="submit" label="Criar" color="primary" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -66,18 +63,17 @@ import { ERROR, SUCCESS } from 'src/configs/Notify';
 
 const { mapActions } = createNamespacedHelpers('customer');
 export default {
-  props: ['customer'],
   data() {
     return {
-      name: this.customer.name,
-      address: this.customer.address,
-      number_phone: this.customer.number_phone,
+      name: '',
+      address: '',
+      number_phone: null,
       always: true,
     };
   },
 
   methods: {
-    ...mapActions(['editCustomerRequest']),
+    ...mapActions(['createCustomerRequest']),
     onHideButton() {
       this.$emit('onHideButton');
     },
@@ -86,9 +82,9 @@ export default {
     },
     onSubmit() {
       this.$emit('onSubmit');
-      this.editCustomerRequest({
+      this.createCustomerRequest({
         // eslint-disable-next-line no-underscore-dangle
-        id: this.customer._id,
+
         name: this.name,
         address: this.address,
         number_phone: this.number_phone,
@@ -96,7 +92,7 @@ export default {
         .then(() => {
           this.$q.notify({
             ...SUCCESS,
-            message: ptBR.success.CUSTOMER_EDIT_SUCCESS,
+            message: ptBR.success.CUSTOMER_CREATED_SUCCESS,
           });
         })
         .catch(({ type }) => {

@@ -50,7 +50,7 @@
           </q-input>
         </div>
       </q-card-section>
-      <q-card-actions align="right">
+      <q-card-actions align="right" class="q-mb-xs">
         <q-btn label="OK" color="primary" v-close-popup />
       </q-card-actions>
     </q-card>

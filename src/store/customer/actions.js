@@ -50,13 +50,12 @@ export function deleteCustomerRequest({ dispatch }, { id }) {
   });
 }
 // eslint-disable-next-line object-curly-newline
-export function createCustomerRequest({ dispatch }, { name, quantity, size, price }) {
+export function createCustomerRequest({ dispatch }, { name, address, number_phone }) {
   return new Promise((resolve, reject) => {
     CustomerApi.post({
       name,
-      quantity,
-      size,
-      price,
+      address,
+      number_phone,
     })
       .then(() => resolve(dispatch('getCustomersRequest')))
       .catch(err => reject(err));
