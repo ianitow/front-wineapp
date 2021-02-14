@@ -35,14 +35,14 @@
         <q-btn
           dense
           size="sm"
-          color="secondary"
+          color="warning"
           label="Editar"
           @click="toggleDialog('edit', product)"
         />
         <q-btn
           size="sm"
           dense
-          color="primary"
+          color="negative"
           label="Deletar"
           @click="toggleDialog('delete', product)"
         />
@@ -81,7 +81,6 @@ export default {
       switch (type) {
         case 'delete':
           this.isDialogDeleteOpened = !this.isDialogDeleteOpened;
-
           break;
         case 'edit':
           this.isDialogEditOpened = !this.isDialogEditOpened;

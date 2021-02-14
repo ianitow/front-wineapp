@@ -13,7 +13,12 @@
             filled
             v-model="customer.name"
             label="Nome do cliente"
-          />
+          >
+            <template v-slot:prepend>
+              <q-icon name="person" />
+            </template>
+          </q-input>
+
           <q-input
             class="full-width"
             readonly
@@ -21,7 +26,11 @@
             filled
             v-model="customer.address"
             label="Endereço"
-          />
+          >
+            <template v-slot:prepend>
+              <q-icon name="home" />
+            </template>
+          </q-input>
 
           <q-input
             readonly
