@@ -18,7 +18,7 @@
  * Debounce in search
  *
  *  */
-import CustomerGroup from 'src/components/CustomerGroup.vue';
+import CustomerGroup from 'src/components/Customer/CustomerGroup.vue';
 
 import { createNamespacedHelpers } from 'vuex';
 import { ptBR } from 'src/i18n';

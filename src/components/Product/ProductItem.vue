@@ -57,7 +57,7 @@ import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
 
 import ProductEdit from './ProductEdit.vue';
-import DialogModal from './DialogModal.vue';
+import DialogModal from '../DialogModal.vue';
 
 const { mapActions } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle

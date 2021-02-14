@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CardHomeGroup from 'src/components/CardHomeGroup.vue';
+import CardHomeGroup from 'src/components/Card/CardHomeGroup.vue';
 
 export default {
   components: { CardHomeGroup },

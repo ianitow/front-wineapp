@@ -30,9 +30,9 @@
  * Debounce in search
  *
  *  */
-import ProductGroup from 'src/components/ProductGroup.vue';
+import ProductGroup from 'src/components/Product/ProductGroup.vue';
 import { createNamespacedHelpers } from 'vuex';
-import ProductCreate from 'src/components/ProductCreate.vue';
+import ProductCreate from 'src/components/Product/ProductCreate.vue';
 import { ptBR } from 'src/i18n';
 
 const {

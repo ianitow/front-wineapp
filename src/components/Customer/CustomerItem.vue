@@ -49,7 +49,7 @@
 import { SUCCESS } from 'src/configs/Notify';
 import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
-import DialogModal from './DialogModal.vue';
+import DialogModal from '../DialogModal.vue';
 import CustomerInfo from './CustomerInfo';
 
 const { mapActions } = createNamespacedHelpers(
