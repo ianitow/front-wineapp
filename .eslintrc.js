@@ -47,6 +47,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     curly: 0,
+    camelcase: 0,
     'no-param-reassign': 'off',
     'space-before-function-paren': 'off',
     'import/first': 'off',

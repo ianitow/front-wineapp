@@ -65,12 +65,12 @@ export function exclude({ id }) {
   });
 }
 
-export function put({ id, name, numberPhone, address }) {
+export function put({ id, name, number_phone, address }) {
   return new Promise((resolve, reject) => {
     api
       .put(`/customers/${id}`, {
         name,
-        number_phone: numberPhone,
+        number_phone,
         address,
       })
       .then(({ data }) => {

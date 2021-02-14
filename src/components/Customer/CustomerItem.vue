@@ -1,5 +1,12 @@
 <template>
   <div>
+    <customer-edit
+      v-if="isModalEditOpened"
+      :customer="customer"
+      @onHideButton="toggleModalEdit"
+      @onCancelButton="resetFunction"
+      @onSubmit="resetFunction"
+    />
     <dialog-modal
       v-if="isModalExcludeOpened"
       message="Deseja realmente excluir o cliente ? "
@@ -51,6 +58,7 @@ import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
 import DialogModal from '../DialogModal.vue';
 import CustomerInfo from './CustomerInfo';
+import CustomerEdit from './CustomerEdit';
 
 const { mapActions } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle
@@ -58,7 +66,7 @@ const { mapActions } = createNamespacedHelpers(
 );
 export default {
   props: ['icon', 'customer'],
-  components: { DialogModal, CustomerInfo },
+  components: { DialogModal, CustomerInfo, CustomerEdit },
   data() {
     return {
       isModalEditOpened: false,

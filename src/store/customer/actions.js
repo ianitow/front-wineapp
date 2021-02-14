@@ -24,14 +24,13 @@ export function getCustomerRequest(state, { id }) {
       });
   });
 }
-export function editCustomerRequest({ dispatch }, { id, name, quantity, size, price }) {
+export function editCustomerRequest({ dispatch }, { id, name, address, number_phone }) {
   return new Promise((resolve, reject) => {
     CustomerApi.put({
       id,
       name,
-      quantity,
-      size,
-      price,
+      address,
+      number_phone,
     })
       .then(() => {
         resolve(dispatch('getCustomersRequest'));
