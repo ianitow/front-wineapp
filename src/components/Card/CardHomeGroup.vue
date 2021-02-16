@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       options: [
-        { title: 'Orders', icon: 'list_alt', routeName: '' },
+        { title: 'Orders', icon: 'list_alt', routeName: 'Orders' },
         { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
 
         { title: 'Clients', icon: 'supervisor_account', routeName: 'Customers' },

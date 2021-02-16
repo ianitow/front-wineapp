@@ -18,6 +18,11 @@ const routes = [
         path: 'customers',
         component: () => import('pages/Customers.vue'),
       },
+      {
+        name: 'Orders',
+        path: 'orders',
+        component: () => import('pages/Orders.vue'),
+      },
     ],
     meta: {
       requiresAuth: true,
