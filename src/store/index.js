@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import account from './account';
 import product from './product';
+import order from './order';
 
 import customer from './customer';
 
@@ -22,6 +23,7 @@ export default function(/* { ssrContext } */) {
       account,
       product,
       customer,
+      order,
     },
 
     // enable strict mode (adds overhead!)
