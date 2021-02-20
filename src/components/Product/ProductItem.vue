@@ -13,6 +13,8 @@
       icon="person"
       @:onHideButton="toggleDialog('delete')"
       @:onSubmitButton="makeDeleteRequest"
+      submitButton="Deletar"
+      cancelButton="Cancelar"
     />
 
     <q-item

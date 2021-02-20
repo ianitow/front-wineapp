@@ -15,6 +15,8 @@
       @onHideButton="toggleModalDelete"
       @onCancelButton="resetFunction"
       @onSubmitButton="makeDeleteRequest"
+      submitButton="Deletar"
+      cancelButton="Cancelar"
     />
     <customer-info v-if="isModalInfoOpened" :customer="customer" @onHideButton="toggleModalInfo" />
     <div>
@@ -51,8 +53,6 @@
 </template>
 <style lang="stylus" scoped></style>
 <script>
-// import customers from 'src/api/customers';
-
 import { SUCCESS } from 'src/configs/Notify';
 import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
@@ -60,10 +60,7 @@ import DialogModal from '../DialogModal.vue';
 import CustomerInfo from './CustomerInfo';
 import CustomerEdit from './CustomerEdit';
 
-const { mapActions } = createNamespacedHelpers(
-  // eslint-disable-next-line comma-dangle
-  'customer'
-);
+const { mapActions } = createNamespacedHelpers('customer');
 export default {
   props: ['icon', 'customer'],
   components: { DialogModal, CustomerInfo, CustomerEdit },
