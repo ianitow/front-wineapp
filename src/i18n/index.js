@@ -20,7 +20,8 @@ export const ptBR = {
     PRODUCT_EDIT_SUCCESS: 'Produto editado com sucesso!',
     CUSTOMER_DELETED_SUCCESS: 'Cliente deletado com sucesso!',
     CUSTOMER_EDIT_SUCCESS: 'Cliente editado com sucesso!',
-    ORDER_CANCELLED_SUCCESS: 'Pedido cancelado com sucesso',
+    ORDER_CANCELLED_SUCCESS: 'Pedido cancelado com sucesso!',
     ORDER_FINISHED_SUCCESS: 'Pedido finalizado com sucesso!',
+    ORDER_CHANGED_SUCESSS: 'Pedido atualizado com sucesso!',
   },
 };

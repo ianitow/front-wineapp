@@ -80,6 +80,7 @@
 </style>
 
 <script>
+import OrderStatus from 'src/configs/StatusOptions';
 import { SUCCESS } from 'src/configs/Notify';
 import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
@@ -104,11 +105,11 @@ export default {
   computed: {
     transformIconStatus() {
       switch (this.order.status) {
-        case 'PENDING':
+        case OrderStatus.PENDING:
           return { icon: 'circle_notifications', color: 'warning' };
-        case 'WAITING_PAYMENT':
+        case OrderStatus.WAITING_PAYMENT:
           return { icon: 'paid', color: 'info' };
-        case 'FINISHED':
+        case OrderStatus.FINISHED:
           return { icon: 'check_circle', color: 'positive' };
         default:
           return { icon: 'unpublished', color: 'negative' };
@@ -118,14 +119,12 @@ export default {
   methods: {
     ...mapActions(['deleteOrderRequest', 'patchStatusOrderRequest']),
     toggleModalCompleted() {
-      console.log(this.order);
       this.isModalCompletedOpened = !this.isModalCompletedOpened;
     },
     toggleModalDelete() {
       this.isModalExcludeOpened = !this.isModalExcludeOpened;
     },
     toggleModalInfo() {
-      console.log(this.order);
       this.isModalInfoOpened = !this.isModalInfoOpened;
     },
     onHandleLeft({ reset }) {
@@ -141,7 +140,7 @@ export default {
       this.patchStatusOrderRequest({
         // eslint-disable-next-line no-underscore-dangle
         id: this.order._id,
-        status: 'FINISHED',
+        status: OrderStatus.FINISHED,
       }).then(() => {
         this.$q.notify({
           ...SUCCESS,
@@ -155,7 +154,7 @@ export default {
       this.patchStatusOrderRequest({
         // eslint-disable-next-line no-underscore-dangle
         id: this.order._id,
-        status: 'CANCELLED',
+        status: OrderStatus.CANCELLED,
       }).then(() => {
         this.$q.notify({
           ...SUCCESS,

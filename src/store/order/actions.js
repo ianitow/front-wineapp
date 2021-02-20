@@ -41,6 +41,21 @@ export function patchStatusOrderRequest({ dispatch }, { id, status }) {
       });
   });
 }
+export function editOrderRequest({ dispatch }, { id, status, notes }) {
+  return new Promise((resolve, reject) => {
+    OrderApi.put({
+      id,
+      status,
+      notes,
+    })
+      .then(() => {
+        resolve(dispatch('getOrdersRequest'));
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
 
 export function deleteOrderRequest({ dispatch }, { id }) {
   return new Promise((resolve, reject) => {

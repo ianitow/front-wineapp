@@ -2,7 +2,7 @@
   <q-page padding>
     <!-- <customer-create v-if="isDialogCreateOpened" @onHideButton="toggleDialogCreateOpened" /> -->
     <div class="q-mb-md">
-      <q-input v-model="searching" bg-color="white" rounded outlined label="Search..." />
+      <q-input v-model="searching" bg-color="white" outlined label="Search..." />
     </div>
 
     <div>

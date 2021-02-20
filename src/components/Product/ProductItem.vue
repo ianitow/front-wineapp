@@ -11,8 +11,8 @@
       :message="`Deseja realmente deletar o produto? `"
       :boldMessage="`${productOpened.name}`"
       icon="person"
-      @:onHideButton="toggleDialog('delete')"
-      @:onSubmitButton="makeDeleteRequest"
+      @onHideButton="toggleDialog('delete')"
+      @onSubmitButton="makeDeleteRequest"
       submitButton="Deletar"
       cancelButton="Cancelar"
     />
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { SUCCESS } from 'src/configs/Notify';
+import { SUCCESS, ERROR } from 'src/configs/Notify';
 import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
 
@@ -101,12 +101,19 @@ export default {
       this.deleteProductRequest({
         // eslint-disable-next-line no-underscore-dangle
         id: this.productOpened._id,
-      }).then(() => {
-        this.$q.notify({
-          ...SUCCESS,
-          message: ptBR.success.PRODUCT_DELETED_SUCCESS,
+      })
+        .then(() => {
+          this.$q.notify({
+            ...SUCCESS,
+            message: ptBR.success.PRODUCT_DELETED_SUCCESS,
+          });
+        })
+        .catch(({ type }) => {
+          this.$q.notify({
+            ...ERROR,
+            message: ptBR.errors[type],
+          });
         });
-      });
       this.isDialogDeleteOpened = false;
     },
   },

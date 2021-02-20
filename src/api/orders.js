@@ -21,7 +21,6 @@ export function get({ id = '' }) {
   });
 }
 
-// eslint-disable-next-line object-curly-newline
 export function post({ user_id, customer_id, products }) {
   return new Promise((resolve, reject) => {
     api
@@ -29,6 +28,28 @@ export function post({ user_id, customer_id, products }) {
         user_id,
         customer_id,
         products,
+      })
+      .then(({ data }) => {
+        resolve(data);
+      })
+      .catch(({ message, response }) => {
+        if (!response) {
+          reject({
+            type: 'UNKNOWN',
+            message,
+          });
+        }
+        reject(response.data);
+      });
+  });
+}
+
+export function put({ id, status, notes }) {
+  return new Promise((resolve, reject) => {
+    api
+      .put(`/orders/${id}`, {
+        status,
+        notes,
       })
       .then(({ data }) => {
         resolve(data);
@@ -70,4 +91,5 @@ export default {
   get,
   post,
   patch,
+  put,
 };
