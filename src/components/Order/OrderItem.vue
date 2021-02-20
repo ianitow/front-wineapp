@@ -1,36 +1,44 @@
 <template>
   <div>
-    <!-- <customer-edit
-      v-if="isModalEditOpened"
-      :customer="order"
-      @onHideButton="toggleModalEdit"
+    <dialog-modal
+      v-if="isModalCompletedOpened"
+      message="Deseja realmente finalizar o pedido ? "
+      :boldMessage="order.customer_id.name"
+      icon="check_circle"
+      @onHideButton="toggleModalCompleted"
       @onCancelButton="resetFunction"
-      @onSubmit="resetFunction"
+      @onSubmitButton="makeFinishedRequest"
+      cancelButton="Cancelar"
+      submitButton="Finalizar"
     />
+
     <dialog-modal
       v-if="isModalExcludeOpened"
-      message="Deseja realmente excluir o cliente ? "
-      :boldMessage="order.name"
-      :icon="icon"
+      message="Deseja realmente cancelar o pedido ? "
+      :boldMessage="order.customer_id.name"
+      icon="block"
       @onHideButton="toggleModalDelete"
       @onCancelButton="resetFunction"
-      @onSubmitButton="makeDeleteRequest"
+      @onSubmitButton="makeCancelRequest"
+      cancelButton="Cancelar"
+      submitButton="Cancelar Pedido"
     />
-    <customer-info v-if="isModalInfoOpened" :customer="order" @onHideButton="toggleModalInfo" /> -->
+    <order-info v-if="isModalInfoOpened" :order="order" @onHideButton="toggleModalInfo" />
+
     <div>
       <q-slide-item
         class="customer"
         @left="element => onHandleLeft(element)"
         @right="element => onHandleRight(element)"
         right-color="negative"
-        left-color="warning"
+        left-color="positive"
         @click="toggleModalInfo"
       >
         <template v-slot:left>
-          <q-icon color="white" name="create" />
+          <q-icon color="white" name="check_circle" />
         </template>
         <template v-slot:right>
-          <q-icon color="white" name="delete" />
+          <q-icon color="white" name="block" />
         </template>
 
         <q-item :class="['order-item', this.transformIconStatus.color]" dense v-ripple>
@@ -75,7 +83,8 @@
 import { SUCCESS } from 'src/configs/Notify';
 import { ptBR } from 'src/i18n';
 import { createNamespacedHelpers } from 'vuex';
-// import DialogModal from '../DialogModal.vue';
+import DialogModal from '../DialogModal.vue';
+import OrderInfo from './OrderInfo';
 
 const { mapActions } = createNamespacedHelpers(
   // eslint-disable-next-line comma-dangle
@@ -83,10 +92,10 @@ const { mapActions } = createNamespacedHelpers(
 );
 export default {
   props: ['options', 'order'],
-  components: {},
+  components: { DialogModal, OrderInfo },
   data() {
     return {
-      isModalEditOpened: false,
+      isModalCompletedOpened: false,
       isModalExcludeOpened: false,
       isModalInfoOpened: false,
       resetFunction: null,
@@ -107,35 +116,52 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['deleteOrderRequest']),
-    toggleModalEdit() {
+    ...mapActions(['deleteOrderRequest', 'patchStatusOrderRequest']),
+    toggleModalCompleted() {
       console.log(this.order);
-      this.isModalEditOpened = !this.isModalEditOpened;
+      this.isModalCompletedOpened = !this.isModalCompletedOpened;
     },
     toggleModalDelete() {
       this.isModalExcludeOpened = !this.isModalExcludeOpened;
     },
     toggleModalInfo() {
+      console.log(this.order);
       this.isModalInfoOpened = !this.isModalInfoOpened;
     },
     onHandleLeft({ reset }) {
       this.resetFunction = reset;
-      this.toggleModalEdit();
+      this.toggleModalCompleted();
     },
     onHandleRight({ reset }) {
       this.resetFunction = reset;
       this.toggleModalDelete();
     },
 
-    makeDeleteRequest() {
-      this.deleteOrderRequest({
+    makeFinishedRequest() {
+      this.patchStatusOrderRequest({
         // eslint-disable-next-line no-underscore-dangle
-        id: this.customer._id,
+        id: this.order._id,
+        status: 'FINISHED',
       }).then(() => {
         this.$q.notify({
           ...SUCCESS,
-          message: ptBR.success.CUSTOMER_DELETED_SUCCESS,
+          message: ptBR.success.ORDER_FINISHED_SUCCESS,
         });
+        this.resetFunction();
+      });
+      this.isModalExcludeOpened = false;
+    },
+    makeCancelRequest() {
+      this.patchStatusOrderRequest({
+        // eslint-disable-next-line no-underscore-dangle
+        id: this.order._id,
+        status: 'CANCELLED',
+      }).then(() => {
+        this.$q.notify({
+          ...SUCCESS,
+          message: ptBR.success.ORDER_CANCELLED_SUCCESS,
+        });
+        this.resetFunction();
       });
       this.isModalExcludeOpened = false;
     },

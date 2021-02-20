@@ -9,8 +9,8 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Cancel" @click="onCancelButton" color="primary" v-close-popup />
-        <q-btn flat label="Deletar" @click="onSubmitButton" color="primary" v-close-popup />
+        <q-btn flat :label="cancelButton" @click="onCancelButton" color="primary" v-close-popup />
+        <q-btn flat :label="submitButton" @click="onSubmitButton" color="primary" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  props: ['message', 'icon', 'boldMessage'],
+  props: ['message', 'icon', 'boldMessage', 'submitButton', 'cancelButton'],
   data() {
     return { always: true };
   },

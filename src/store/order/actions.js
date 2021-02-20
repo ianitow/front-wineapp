@@ -6,6 +6,7 @@ import { GET_ORDERS_REQUEST_SUCCESS } from './types';
 export function getOrdersRequest({ commit }) {
   return new Promise((resolve, reject) => {
     OrderApi.get({})
+
       .then(data => {
         resolve(commit(GET_ORDERS_REQUEST_SUCCESS, { orders: data }));
       })
@@ -26,13 +27,11 @@ export function getOrderRequest(state, { id }) {
       });
   });
 }
-export function editOrderRequest({ dispatch }, { id, name, address, number_phone }) {
+export function patchStatusOrderRequest({ dispatch }, { id, status }) {
   return new Promise((resolve, reject) => {
-    OrderApi.put({
+    OrderApi.patch({
       id,
-      name,
-      address,
-      number_phone,
+      status,
     })
       .then(() => {
         resolve(dispatch('getOrdersRequest'));

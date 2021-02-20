@@ -22,13 +22,13 @@ export function get({ id = '' }) {
 }
 
 // eslint-disable-next-line object-curly-newline
-export function post({ name, number_phone, address }) {
+export function post({ user_id, customer_id, products }) {
   return new Promise((resolve, reject) => {
     api
       .post('/orders', {
-        name,
-        number_phone,
-        address,
+        user_id,
+        customer_id,
+        products,
       })
       .then(({ data }) => {
         resolve(data);
@@ -45,33 +45,11 @@ export function post({ name, number_phone, address }) {
   });
 }
 
-export function exclude({ id }) {
+export function patch({ id, status }) {
   return new Promise((resolve, reject) => {
     api
-      .delete(`/orders/${id}`)
-      .then(({ status }) => {
-        resolve(status);
-      })
-      .catch(({ message, response }) => {
-        if (!response) {
-          reject({
-            type: 'UNKNOWN',
-            message,
-          });
-        }
-
-        reject(response.data);
-      });
-  });
-}
-
-export function put({ id, name, number_phone, address }) {
-  return new Promise((resolve, reject) => {
-    api
-      .put(`/orders/${id}`, {
-        name,
-        number_phone,
-        address,
+      .patch(`/orders/${id}`, {
+        status,
       })
       .then(({ data }) => {
         resolve(data);
@@ -91,6 +69,5 @@ export function put({ id, name, number_phone, address }) {
 export default {
   get,
   post,
-  delete: exclude,
-  put,
+  patch,
 };
