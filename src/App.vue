@@ -4,12 +4,12 @@
   </div>
 </template>
 <script>
-import { setHeaderInterceptorInAxios } from 'src/api/userAuth';
+import Fastclick from '@quasar/fastclick';
 
 export default {
   name: 'App',
-  beforeMount() {
-    setHeaderInterceptorInAxios(localStorage.getItem('token'));
+  created() {
+    Fastclick();
   },
 };
 </script>

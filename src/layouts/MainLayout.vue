@@ -1,7 +1,11 @@
 <template>
   <div class="">
     <q-layout view="lHh lpr lFf">
-      <q-header id="header" class="flex justify-center items-center text-center" style="height:100px;">
+      <q-header
+        id="header"
+        class="flex justify-center items-center text-center"
+        style="height:100px;"
+      >
         <q-toolbar>
           <q-toolbar-title class="header-content">
             <router-link :to="'/'"> <img class="img-logo" src="../assets/logo.svg"/></router-link>
@@ -36,3 +40,12 @@
   justify-content:center;
 }
 </style>
+<script>
+import { setHeaderInterceptorInAxios } from 'src/api/userAuth';
+
+export default {
+  beforeMount() {
+    setHeaderInterceptorInAxios(localStorage.getItem('token'));
+  },
+};
+</script>
