@@ -5,11 +5,15 @@
       <q-input
         v-model="searching"
         bg-color="white"
-        rounded
         outlined
+        debounce="200"
         label="Search..."
         class="q-mb-md"
-      />
+      >
+        <template v-slot:append>
+          <q-icon name="search" color="grey-6" />
+        </template>
+      </q-input>
     </div>
     <div>
       <customer-group icon="account_box" :customers="this.getCustomersWithSearching" />
@@ -21,11 +25,6 @@
 </template>
 
 <script>
-/** TODO
- *
- * Debounce in search
- *
- *  */
 import CustomerGroup from 'src/components/Customer/CustomerGroup.vue';
 
 import { createNamespacedHelpers } from 'vuex';
@@ -41,6 +40,7 @@ export default {
   data() {
     return {
       isDialogCreateOpened: false,
+      searching: '',
     };
   },
   mounted() {
@@ -55,18 +55,15 @@ export default {
     });
   },
   computed: {
-    searching: {
-      get() {
-        return this.$store.state.customer.searching;
-      },
-      set(newValue) {
-        this.$store.commit('customer/SET_SEARCH_STRING', newValue);
-      },
-    },
     ...mapState({
       customers: state => state.customers,
     }),
     ...mapGetters(['getCustomersWithSearching']),
+  },
+  watch: {
+    searching(newValue) {
+      this.$store.commit('customer/SET_SEARCH_STRING', newValue);
+    },
   },
   methods: {
     toggleDialogCreateOpened() {

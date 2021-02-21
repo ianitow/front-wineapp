@@ -2,7 +2,11 @@
   <q-page padding>
     <!-- <customer-create v-if="isDialogCreateOpened" @onHideButton="toggleDialogCreateOpened" /> -->
     <div class="q-mb-md">
-      <q-input v-model="searching" bg-color="white" outlined label="Search..." />
+      <q-input v-model="searching" bg-color="white" outlined label="Search...">
+        <template v-slot:append>
+          <q-icon name="search" color="grey-6" />
+        </template>
+      </q-input>
     </div>
 
     <div>
@@ -34,6 +38,7 @@ export default {
   data() {
     return {
       isDialogCreateOpened: false,
+      searching: '',
     };
   },
   mounted() {
@@ -47,15 +52,12 @@ export default {
       });
     });
   },
-  computed: {
-    searching: {
-      get() {
-        return this.$store.state.order.searching;
-      },
-      set(newValue) {
-        this.$store.commit('order/SET_SEARCH_STRING', newValue);
-      },
+  watch: {
+    searching(newValue) {
+      this.$store.commit('order/SET_SEARCH_STRING', newValue);
     },
+  },
+  computed: {
     ...mapState({
       orders: state => state.orders,
     }),

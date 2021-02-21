@@ -52,7 +52,7 @@
       </div>
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" color="primary" v-close-popup />
-        <q-btn label="Editar" color="primary" v-close-popup @click="onClickEditButton" />
+        <q-btn unelevated label="Editar" color="primary" v-close-popup @click="onClickEditButton" />
       </q-card-actions>
     </q-card>
   </q-dialog>

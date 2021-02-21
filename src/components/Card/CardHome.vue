@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.button-container
+.button-container{
   user-select:none;
   color:$primary;
   width:120px;
@@ -31,9 +31,10 @@ export default {
   border-radius:10px;
   background-color:white;
   box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
- &:hover{
+  }
+  .button-container:hover{
     cursor:pointer
     background-image: linear-gradient( 69.7deg,  rgba(216,81,82,1) 40%, $primary 100.1% );
     color:white;
-  }
+    }
 </style>

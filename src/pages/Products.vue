@@ -3,14 +3,11 @@
     <product-create v-if="isDialogCreateOpened" v-on:onCancelButton="toggleDialogCreateOpened" />
 
     <div>
-      <q-input
-        v-model="searching"
-        bg-color="white"
-        rounded
-        outlined
-        label="Search..."
-        class="q-mb-md"
-      />
+      <q-input v-model="searching" bg-color="white" outlined label="Search..." class="q-mb-md">
+        <template v-slot:append>
+          <q-icon name="search" color="grey-6" />
+        </template>
+      </q-input>
       <product-group
         iconHeader="local_bar"
         icon="inventory_2"
@@ -48,6 +45,7 @@ export default {
   data() {
     return {
       isDialogCreateOpened: false,
+      searching: '',
     };
   },
   mounted() {
@@ -61,15 +59,12 @@ export default {
       });
     });
   },
-  computed: {
-    searching: {
-      get() {
-        return this.$store.state.product.searching;
-      },
-      set(newValue) {
-        this.$store.commit('product/SET_SEARCH_STRING', newValue);
-      },
+  watch: {
+    searching(newValue) {
+      this.$store.commit('product/SET_SEARCH_STRING', newValue);
     },
+  },
+  computed: {
     ...mapGetters(['getProductsByGroup']),
     ...mapState({
       products: state => state.products,

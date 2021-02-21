@@ -41,11 +41,13 @@
           size="sm"
           color="warning"
           label="Editar"
+          unelevated
           @click="toggleDialog('edit', product)"
         />
         <q-btn
           size="sm"
           dense
+          unelevated
           color="negative"
           label="Deletar"
           @click="toggleDialog('delete', product)"
