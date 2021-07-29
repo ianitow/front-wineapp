@@ -47,6 +47,33 @@
                 <q-icon name="notes" />
               </template>
             </q-input>
+            <q-separator inset />
+
+            <div class="text-h6">Itens do pedido</div>
+            <div class="text-subtitle2 q-my-none">
+              Total: <span class="text-bold text-positive">R${{ this.total_price }}</span>
+            </div>
+            <q-scroll-area style="height: 200px; ">
+              <div
+                v-for="product in this.products"
+                :key="product.product_id._id"
+                class="flex items-center full-width"
+              >
+                <q-icon name="wine_bar" class="" style="font-size: 42px;" color="primary" />
+                <q-item>
+                  <q-item-section>
+                    <q-item-label>
+                      <span class="text-subtitle1">{{
+                        product.product_id.name
+                      }}</span></q-item-label
+                    >
+                    <q-item-label caption>Tamanho: {{ product.product_id.size }}L</q-item-label>
+                    <q-item-label caption>Quantidade: {{ product.quantity }}L</q-item-label>
+                    <q-item-label caption>Preço Un.: R${{ product.price }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </q-scroll-area>
           </div>
         </q-card-section>
         <q-card-actions align="right" class="q-mb-xs">
@@ -83,7 +110,9 @@ export default {
       customerNumberPhone: this.order.customer_id.number_phone,
       status: this.order.status,
       notes: this.order.notes,
+      products: this.order.products,
       selected: { value: this.order.status },
+      total_price: this.order.total_price,
       options: [
         { label: 'Pendente', value: OrderStatus.PENDING },
         { label: 'Ag. Pagamento', value: OrderStatus.WAITING_PAYMENT },
@@ -112,7 +141,7 @@ export default {
     ...mapActions(['editOrderRequest']),
     onSubmitDialog() {
       if (this.isSomethingChanged()) {
-        this.editOrderRequest({
+        this.editOrderRorderequest({
           // eslint-disable-next-line no-underscore-dangle
           id: this.order._id,
           status: this.status,
