@@ -4,10 +4,8 @@ import axios from 'axios';
 Vue.prototype.$axios = axios;
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://wine-votu.herokuapp.com/orders',
 });
 Vue.prototype.$api = api;
 
-export {
-  axios, api,
-};
+export { axios, api };
