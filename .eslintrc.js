@@ -88,7 +88,5 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'arrow-body-style': ['error', 'always'],
-    indent: 'off',
-    'max-len': '125',
   },
 };
