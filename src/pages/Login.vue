@@ -1,18 +1,36 @@
 <template>
   <form-layout :onSubmit="onSubmit">
-    <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <transition-group
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
       <div key="intern">
         <div class="row q-mb-lg">
           <span class="text-h5">Faça seu login</span>
         </div>
         <div class="row">
           <div class="col q-gutter-y-md">
-            <q-input required type="email" v-model="email" class="full-width " outlined label="Email">
+            <q-input
+              required
+              type="email"
+              v-model="email"
+              class="full-width "
+              outlined
+              label="Email"
+            >
               <template v-slot:prepend>
                 <q-icon name="email" />
               </template>
             </q-input>
-            <q-input v-model="password" type="password" class="full-width" outlined label="Password" required>
+            <q-input
+              v-model="password"
+              type="password"
+              class="full-width"
+              outlined
+              label="Password"
+              required
+            >
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>

@@ -11,6 +11,9 @@ export const ptBR = {
     // PRODUCTS
     PRODUCT_DATA_INVALID: 'Produto invalido, por favor, informe os dados corretos.',
     UNKNOWN: 'Erro desconhecido, por favor, contate o administrador',
+    SIZE_INVALID_PRODUCT: 'Item no estoque é menor do que o inserido.',
+    CUSTOMER_NOT_SELECTED: 'Cliente não selecionado!',
+    CART_EMPTY: 'Carrinho não pode ser vazio!',
   },
   success: {
     LOGIN_SUCCESS: 'Login efeturado com sucesso! Você será redirecionado.',
@@ -23,5 +26,6 @@ export const ptBR = {
     ORDER_CANCELLED_SUCCESS: 'Pedido cancelado com sucesso!',
     ORDER_FINISHED_SUCCESS: 'Pedido finalizado com sucesso!',
     ORDER_CHANGED_SUCESSS: 'Pedido atualizado com sucesso!',
+    ORDER_CREATED_SUCCESS: 'Pedido foi criado com sucesso!',
   },
 };

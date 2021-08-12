@@ -56,7 +56,9 @@ export default {
   },
   computed: {
     ...mapState({
-      customers: state => state.customers,
+      customers: state => {
+        return state.customers;
+      },
     }),
     ...mapGetters(['getCustomersWithSearching']),
   },

@@ -6,7 +6,9 @@ import { GET_CUSTOMERS_REQUEST_SUCCESS } from './types';
 export function getCustomersRequest({ commit }) {
   return new Promise((resolve, reject) => {
     CustomerApi.get({})
-      .then(data => resolve(commit(GET_CUSTOMERS_REQUEST_SUCCESS, { customers: data })))
+      .then(data => {
+        return resolve(commit(GET_CUSTOMERS_REQUEST_SUCCESS, { customers: data }));
+      })
       .catch(err => {
         this.$router.push('/login');
         reject(err);
@@ -44,9 +46,13 @@ export function editCustomerRequest({ dispatch }, { id, name, address, number_ph
 export function deleteCustomerRequest({ dispatch }, { id }) {
   return new Promise((resolve, reject) => {
     CustomerApi.delete({ id })
-      .then(() => resolve(dispatch('getCustomersRequest')))
+      .then(() => {
+        return resolve(dispatch('getCustomersRequest'));
+      })
 
-      .catch(err => reject(err));
+      .catch(err => {
+        return reject(err);
+      });
   });
 }
 // eslint-disable-next-line object-curly-newline
@@ -57,7 +63,11 @@ export function createCustomerRequest({ dispatch }, { name, address, number_phon
       address,
       number_phone,
     })
-      .then(() => resolve(dispatch('getCustomersRequest')))
-      .catch(err => reject(err));
+      .then(() => {
+        return resolve(dispatch('getCustomersRequest'));
+      })
+      .catch(err => {
+        return reject(err);
+      });
   });
 }

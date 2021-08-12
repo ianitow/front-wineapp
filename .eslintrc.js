@@ -71,10 +71,24 @@ module.exports = {
         functions: 'never',
       },
     ],
-    'max-len': ['error', { code: 120 }],
-    'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'implicit-arrow-linebreak': 'off',
+    'max-len': [
+      'error',
+      {
+        code: 120,
+      },
+    ],
+    'no-underscore-dangle': [
+      'error',
+      {
+        allowAfterThis: true,
+      },
+    ],
     'nonblock-statement-body-position': ['error', 'below'],
-    // 'object-curly-newline': ['error', { ObjectExpression: 'always', ObjectPattern: 'never' }],
+    'object-curly-newline': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'arrow-body-style': ['error', 'always'],
+    indent: 'off',
+    'max-len': '125',
   },
 };

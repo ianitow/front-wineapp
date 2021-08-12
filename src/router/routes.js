@@ -1,27 +1,27 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => { return import('layouts/MainLayout.vue'); },
     children: [
       {
         name: 'Dashboard',
         path: '',
-        component: () => import('pages/Index.vue'),
+        component: () => { return import('pages/Index.vue'); },
       },
       {
         name: 'Products',
         path: 'products',
-        component: () => import('pages/Products.vue'),
+        component: () => { return import('pages/Products.vue'); },
       },
       {
         name: 'Customers',
         path: 'customers',
-        component: () => import('pages/Customers.vue'),
+        component: () => { return import('pages/Customers.vue'); },
       },
       {
         name: 'Orders',
         path: 'orders',
-        component: () => import('pages/Orders.vue'),
+        component: () => { return import('pages/Orders.vue'); },
       },
     ],
     meta: {
@@ -30,19 +30,19 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import('pages/Login.vue'),
+    component: () => { return import('pages/Login.vue'); },
     name: 'LoginForm',
   },
   {
     path: '/register',
-    component: () => import('pages/Register.vue'),
+    component: () => { return import('pages/Register.vue'); },
     name: 'RegisterForm',
   },
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '*',
-    component: () => import('pages/Error404.vue'),
+    component: () => { return import('pages/Error404.vue'); },
   },
 ];
 

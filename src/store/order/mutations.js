@@ -1,4 +1,6 @@
-export function GET_ORDERS_REQUEST_SUCCESS(state, { orders }) {
+export function GET_ORDERS_REQUEST_SUCCESS(state, {
+  orders,
+}) {
   state.orders = orders;
 }
 

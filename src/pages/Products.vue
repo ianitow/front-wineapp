@@ -67,7 +67,9 @@ export default {
   computed: {
     ...mapGetters(['getProductsByGroup']),
     ...mapState({
-      products: state => state.products,
+      products: state => {
+        return state.products;
+      },
     }),
   },
   methods: {

@@ -34,12 +34,7 @@
                 <q-icon name="phone" />
               </template>
             </q-input>
-            <q-select
-              v-model="getSelectedStatus"
-              filled
-              :options="options"
-              label="Status do pedido"
-            >
+            <q-select v-model="getSelectedStatus" filled :options="options" label="Status do pedido">
               <template v-slot:prepend> <q-icon name="list_alt" /> </template
             ></q-select>
             <q-input type="text" filled v-model="notes" label="Observações">
@@ -53,19 +48,13 @@
             <div class="text-subtitle2 q-my-none">
               Total: <span class="text-bold text-positive">R${{ this.total_price }}</span>
             </div>
-            <q-scroll-area style="height: 200px; ">
-              <div
-                v-for="product in this.products"
-                :key="product.product_id._id"
-                class="flex items-center full-width"
-              >
+            <q-scroll-area style="height: 120px; ">
+              <div v-for="(product, index) in this.products" :key="index" class="flex items-center full-width">
                 <q-icon name="wine_bar" class="" style="font-size: 42px;" color="primary" />
                 <q-item>
                   <q-item-section>
                     <q-item-label>
-                      <span class="text-subtitle1">{{
-                        product.product_id.name
-                      }}</span></q-item-label
+                      <span class="text-subtitle1">{{ product.product_id.name }}</span></q-item-label
                     >
                     <q-item-label caption>Tamanho: {{ product.product_id.size }}L</q-item-label>
                     <q-item-label caption>Quantidade: {{ product.quantity }}L</q-item-label>
@@ -77,12 +66,7 @@
           </div>
         </q-card-section>
         <q-card-actions align="right" class="q-mb-xs">
-          <q-btn
-            :label="isSomethingChanged() ? 'Editar' : 'Fechar'"
-            color="primary"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn :label="isSomethingChanged() ? 'Editar' : 'Fechar'" color="primary" v-close-popup type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -127,7 +111,9 @@ export default {
   computed: {
     getSelectedStatus: {
       get() {
-        return this.options.filter(status => this.selected.value === status.value)[0];
+        return this.options.filter(status => {
+          return this.selected.value === status.value;
+        })[0];
       },
       set(selectedObject) {
         const { label, value } = selectedObject;
@@ -141,7 +127,7 @@ export default {
     ...mapActions(['editOrderRequest']),
     onSubmitDialog() {
       if (this.isSomethingChanged()) {
-        this.editOrderRorderequest({
+        this.editOrderRequest({
           // eslint-disable-next-line no-underscore-dangle
           id: this.order._id,
           status: this.status,

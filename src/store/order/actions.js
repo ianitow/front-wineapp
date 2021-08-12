@@ -60,20 +60,29 @@ export function editOrderRequest({ dispatch }, { id, status, notes }) {
 export function deleteOrderRequest({ dispatch }, { id }) {
   return new Promise((resolve, reject) => {
     OrderApi.delete({ id })
-      .then(() => resolve(dispatch('getOrdersRequest')))
+      .then(() => {
+        return resolve(dispatch('getOrdersRequest'));
+      })
 
-      .catch(err => reject(err));
+      .catch(err => {
+        return reject(err);
+      });
   });
 }
 // eslint-disable-next-line object-curly-newline
-export function createOrderRequest({ dispatch }, { name, address, number_phone }) {
+export function createOrderRequest({ dispatch }, { customer_id, products, notes }) {
   return new Promise((resolve, reject) => {
+    console.log(products);
     OrderApi.post({
-      name,
-      address,
-      number_phone,
+      customer_id,
+      products,
+      notes,
     })
-      .then(() => resolve(dispatch('getOrdersRequest')))
-      .catch(err => reject(err));
+      .then(() => {
+        return resolve(dispatch('getOrdersRequest'));
+      })
+      .catch(err => {
+        return reject(err);
+      });
   });
 }

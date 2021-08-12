@@ -20,10 +20,9 @@ export default {
       options: [
         { title: 'Orders', icon: 'list_alt', routeName: 'Orders' },
         { title: 'Inventory', icon: 'wine_bar', routeName: 'Products' },
-
         { title: 'Clients', icon: 'supervisor_account', routeName: 'Customers' },
         { title: 'Users', icon: 'admin_panel_settings', routeName: '' },
-        { title: 'Logout', icon: 'logout', routeName: '' },
+        { title: 'Logout', icon: 'logout', routeName: 'Login' },
       ],
     };
   },

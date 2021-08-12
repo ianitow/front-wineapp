@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <!-- <customer-create v-if="isDialogCreateOpened" @onHideButton="toggleDialogCreateOpened" /> -->
+    <order-create v-if="isDialogCreateOpened" @onHideButton="toggleDialogCreateOpened" />
     <div class="q-mb-md">
       <q-input v-model="searching" bg-color="white" outlined label="Search...">
         <template v-slot:append>
@@ -25,15 +25,16 @@
  *
  *  */
 
+import OrderCreate from 'src/components/Order/OrderCreate.vue';
 import { createNamespacedHelpers } from 'vuex';
 import { ptBR } from 'src/i18n';
-// import OrderCreate from 'src/components/Order/OrderCreate.vue';
 import OrderGroup from 'src/components/Order/OrderGroup.vue';
 
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('order');
 export default {
   components: {
     OrderGroup,
+    OrderCreate,
   },
   data() {
     return {
@@ -59,7 +60,9 @@ export default {
   },
   computed: {
     ...mapState({
-      orders: state => state.orders,
+      orders: state => {
+        return state.orders;
+      },
     }),
     ...mapGetters(['getOrdersWithSearching']),
   },

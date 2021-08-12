@@ -1,4 +1,6 @@
-export function GET_CUSTOMERS_REQUEST_SUCCESS(state, { customers }) {
+export function GET_CUSTOMERS_REQUEST_SUCCESS(state, {
+  customers,
+}) {
   state.customers = customers;
 }
 

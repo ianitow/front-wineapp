@@ -1,8 +1,12 @@
 /* eslint-disable comma-dangle */
 import LoginAuth from 'src/api/userAuth';
-import { ptBR } from 'src/i18n/index';
+import {
+  ptBR
+} from 'src/i18n/index';
 
-export function loginRequest(state, { email, password }) {
+export function loginRequest(state, {
+  email, password
+}) {
   return new Promise((resolve, reject) => {
     LoginAuth.login(email, password)
       .then(token => {
@@ -14,7 +18,9 @@ export function loginRequest(state, { email, password }) {
           message: ptBR.success.LOGIN_SUCCESS,
         });
       })
-      .catch(({ type }) => {
+      .catch(({
+        type
+      }) => {
         reject({
           color: 'red',
           textColor: 'white',
@@ -40,7 +46,9 @@ export function registerRequest(
           message: ptBR.success.REGISTER_SUCCESS,
         });
       })
-      .catch(({ type }) => {
+      .catch(({
+        type
+      }) => {
         reject({
           color: 'red',
           textColor: 'white',

@@ -2,54 +2,64 @@
   <q-dialog ref="dialogComponent" v-model="always" persistent @hide="onHideButton">
     <q-card class="full-width">
       <q-card-section>
-        <div class="text-h6">Criar cliente</div>
+        <div class="text-h6">
+          Criar pedido
+        </div>
       </q-card-section>
+
       <q-form @submit.prevent="onSubmit">
         <q-card-section class="q-pt-none">
-          <q-input
-            filled
-            required
-            v-model="name"
-            label="Nome do Cliente"
-            lazy-rules
-            :rules="[val => (val && val.length > 0) || 'Por favor, digite algo']"
-          >
-            <template v-slot:prepend>
-              <q-icon name="person" />
-            </template>
-          </q-input>
-          <q-input
-            type="text"
-            v-model="address"
-            required
-            filled
-            label="Endereço"
-            lazy-rules
-            :rules="[val => (val && val.length) > 0 || 'Por favor, digite um endereço válido']"
-          >
-            <template v-slot:prepend>
-              <q-icon name="home" />
-            </template>
-          </q-input>
+          <div class="items-center row justify-center">
+            <select-customer @onCustomerSelected="onHandleCustomerSelected" />
+            <select-products @onAddToCart="addItemToCart" />
+          </div>
 
-          <q-input
-            type="number"
-            required
-            v-model="number_phone"
-            filled
-            label="Número de telefone"
-            lazy-rules
-            :rules="[val => val.toString().length == 11 || 'Por favor, digite um número valido']"
-          >
-            <template v-slot:prepend>
-              <q-icon name="phone" />
-            </template>
-          </q-input>
+          <q-separator inset />
+
+          <div class="text-h6">
+            Itens do pedido
+          </div>
+          <div class="text-subtitle2 q-my-none">
+            Total:
+            <span class="text-bold text-positive">R$ {{ this.totalPrice }} </span>
+          </div>
+          <q-scroll-area style="height: 200px; ">
+            <div v-for="(product, index) in this.cart" :key="index" class="flex full-width ">
+              <q-slide-item
+                class="full-width "
+                right-color="negative"
+                left-color="warning"
+                @right="element => onHandleRight(element, index)"
+              >
+                <template v-slot:right>
+                  <q-icon color="white" name="delete" />
+                </template>
+                <div class="flex q-pd-md">
+                  <q-icon name="wine_bar" class="self-center " style="font-size: 42px;" color="primary" />
+
+                  <q-item dense v-ripple>
+                    <q-item-section side>
+                      <q-item-section>
+                        <q-item-label>
+                          <span class="text-subtitle1"
+                            ><b>{{ product.label }}</b></span
+                          ></q-item-label
+                        >
+                        <q-item-label caption>Tamanho: {{ product.size }}L</q-item-label>
+                        <q-item-label caption>Quantidade: {{ product.quantity }}L</q-item-label>
+                        <q-item-label caption>Preço Un.: R${{ product.price * product.quantity }}</q-item-label>
+                      </q-item-section>
+                    </q-item-section>
+                  </q-item>
+                </div>
+              </q-slide-item>
+            </div>
+          </q-scroll-area>
         </q-card-section>
 
-        <q-card-actions align="right" class="q-mb-xs">
+        <q-card-actions align="right" class="q-mt-lg q-mb-xs">
           <q-btn flat label="Cancelar" color="primary" v-close-popup @click="onCancelButton" />
-          <q-btn type="submit" label="Criar" color="primary" />
+          <q-btn @click="onSubmit" label="Criar" color="primary" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -60,39 +70,94 @@
 import { createNamespacedHelpers } from 'vuex';
 import { ptBR } from 'src/i18n';
 import { ERROR, SUCCESS } from 'src/configs/Notify';
+import SelectCustomer from '../SelectCustomer.vue';
+import SelectProducts from '../SelectProducts.vue';
+// import customer from 'src/store/customer';
 
-const { mapActions } = createNamespacedHelpers('customer');
+const { mapState } = createNamespacedHelpers('customer');
+const { mapActions } = createNamespacedHelpers('order');
+
 export default {
+  components: {
+    SelectCustomer,
+    SelectProducts,
+  },
   data() {
     return {
-      name: '',
-      address: '',
-      number_phone: null,
+      cart: [],
+      customer_info: null,
+
       always: true,
     };
   },
 
+  computed: {
+    ...mapState({
+      customers: state => {
+        return state.customers.map(({ name, address }) => {
+          return {
+            label: name,
+            address,
+          };
+        });
+      },
+    }),
+    totalPrice() {
+      const cartValues = this.cart.map(({ price, quantity }) => {
+        return price * quantity;
+      });
+      return cartValues.length !== 0
+        ? cartValues.reduce((prev, next) => {
+            return prev + next;
+          })
+        : 0;
+    },
+  },
+
   methods: {
-    ...mapActions(['createCustomerRequest']),
+    ...mapActions(['createOrderRequest']),
     onHideButton() {
       this.$emit('onHideButton');
+    },
+    onHandleRight(element, index) {
+      this.cart.splice(index, 1);
+      element.reset();
+    },
+    onHandleCustomerSelected(info) {
+      this.customer_info = info;
+    },
+    addItemToCart(item) {
+      this.cart.push(item);
     },
     onCancelButton() {
       this.$emit('onCancelButton');
     },
     onSubmit() {
-      this.$emit('onSubmit');
-      this.createCustomerRequest({
-        // eslint-disable-next-line no-underscore-dangle
+      if (!this.customer_info) {
+        this.$q.notify({
+          ...ERROR,
+          message: ptBR.errors.CUSTOMER_NOT_SELECTED,
+        });
+        return;
+      }
+      if (this.cart.length === 0) {
+        this.$q.notify({
+          ...ERROR,
+          message: ptBR.errors.CART_EMPTY,
+        });
+        return;
+      }
 
-        name: this.name,
-        address: this.address,
-        number_phone: this.number_phone,
+      this.createOrderRequest({
+        // eslint-disable-next-line no-underscore-dangle
+        customer_id: this.customer_info._id,
+        products: this.cart,
+        notes: '',
       })
         .then(() => {
           this.$q.notify({
             ...SUCCESS,
-            message: ptBR.success.CUSTOMER_CREATED_SUCCESS,
+            message: ptBR.success.ORDER_CREATED_SUCCESS,
           });
         })
         .catch(({ type }) => {
